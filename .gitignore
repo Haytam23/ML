@@ -24,9 +24,6 @@ wheels/
 *.egg
 
 # PyTorch models (large files)
-*.pth
-*.pt
-*.ckpt
 
 # IDE
 .vscode/
