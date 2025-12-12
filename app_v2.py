@@ -291,7 +291,7 @@ def main():
     
     model_path = st.sidebar.text_input(
         "Model Path",
-        value=r"C:\Users\hp\Downloads\sp500_models_tuned-20251212T002933Z-3-001\sp500_models_tuned\T_dm64_l2_lr1e4_best.pth"
+        value="sp500_models_tuned/T_dm64_l2_lr1e4_best.pth"
     )
     
     forecast_horizon = st.sidebar.selectbox(
