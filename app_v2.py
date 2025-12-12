@@ -287,7 +287,7 @@ def plot_forecast_horizon(last_date, point_pred, lower, upper, forecast_days=5):
 # ========== MAIN APP ==========
 def main():
     # Sidebar configuration (must be first to define forecast_horizon)
-    st.sidebar.header("⚙️ Configuration")
+    st.sidebar.header(" Configuration")
     
     model_path = st.sidebar.text_input(
         "Model Path",
@@ -302,7 +302,7 @@ def main():
     )
     
     # Title and description
-    st.title("📈 S&P 500 Volatility Forecasting Dashboard")
+    st.title(" S&P 500 Volatility Forecasting Dashboard")
     horizon_text = "1 month" if forecast_horizon == 20 else "1 week"
     st.markdown(f"""
     **Transformer-based volatility prediction model with 95% confidence intervals**
@@ -314,7 +314,7 @@ def main():
     sequence_length = st.sidebar.slider("Sequence Length (days)", 30, 90, 60)
     
     st.sidebar.markdown("---")
-    st.sidebar.markdown("### 📊 Model Architecture")
+    st.sidebar.markdown("###  Model Architecture")
     st.sidebar.markdown("""
     - **Type**: Transformer Encoder
     - **d_model**: 64 (configurable: 128)
@@ -329,7 +329,7 @@ def main():
     st.markdown("---")
     
     # File upload
-    st.subheader("📂 Upload Historical Data")
+    st.subheader(" Upload Historical Data")
     st.markdown("Upload CSV with last 60+ days of S&P 500 data (columns: `Date`, `Open`, `High`, `Low`, `Close`, `Volume`)")
     
     uploaded_file = st.file_uploader("Choose CSV file", type=['csv'])
@@ -364,7 +364,7 @@ def main():
             df['True_Vol_30d'] = calculate_30day_volatility(df['Returns'])
             
             # Show recent data
-            with st.expander("📊 Recent Data Preview"):
+            with st.expander("Recent Data Preview"):
                 st.dataframe(df.tail(10), use_container_width=True)
             
             # Feature engineering
@@ -396,9 +396,9 @@ def main():
             
             # Prediction
             st.markdown("---")
-            st.subheader("🤖 Volatility Prediction")
+            st.subheader(" Volatility Prediction")
             
-            if st.button(f"🚀 Generate {forecast_horizon}-Day Forecast", type="primary"):
+            if st.button(f" Generate {forecast_horizon}-Day Forecast", type="primary"):
                 with st.spinner("Loading model and generating predictions..."):
                     try:
                         # Load model
@@ -415,7 +415,7 @@ def main():
                         )
                         
                         # Display prediction
-                        st.markdown(f"### 📊 {forecast_horizon}-Day Ahead Forecast")
+                        st.markdown(f"###  {forecast_horizon}-Day Ahead Forecast")
                         
                         col1, col2, col3 = st.columns(3)
                         with col1:
@@ -465,7 +465,7 @@ def main():
                         
                         # Plot forecast
                         st.markdown("---")
-                        st.subheader("📈 Forecast Visualization")
+                        st.subheader(" Forecast Visualization")
                         
                         last_date = df['Date'].iloc[-1]
                         
@@ -608,7 +608,7 @@ def main():
                         
                         # Additional Analytics
                         st.markdown("---")
-                        st.subheader("📊 Additional Analytics")
+                        st.subheader(" Additional Analytics")
                         
                         col1, col2 = st.columns(2)
                         
@@ -656,7 +656,7 @@ def main():
                         
                         # Price and Volatility Combined View
                         st.markdown("---")
-                        st.markdown("**📈 Price Movement vs Volatility (Last 60 Days)**")
+                        st.markdown("** Price Movement vs Volatility (Last 60 Days)**")
                         
                         fig_combined = make_subplots(
                             rows=2, cols=1,
@@ -776,7 +776,7 @@ def main():
                         # Historical comparison (if enough data)
                         if len(df_features) >= sequence_length + 30:
                             st.markdown("---")
-                            st.subheader("📉 Historical True vs Predicted")
+                            st.subheader(" Historical True vs Predicted")
                             
                             # Generate predictions for last 30 days (demo)
                             n_samples = min(30, len(df_features) - sequence_length)
@@ -812,7 +812,7 @@ def main():
                         
                         # Daily Forecast Table
                         st.markdown("---")
-                        st.subheader("📅 Daily Forecast Table")
+                        st.subheader(" Daily Forecast Table")
                         
                         forecast_df = pd.DataFrame({
                             'Day': range(1, forecast_horizon + 1),
@@ -870,7 +870,7 @@ def main():
                         st.markdown("---")
                         csv = forecast_df.to_csv(index=False)
                         st.download_button(
-                            label="📥 Download Forecast CSV",
+                            label=" Download Forecast CSV",
                             data=csv,
                             file_name=f"volatility_forecast_{forecast_horizon}d_{datetime.now().strftime('%Y%m%d')}.csv",
                             mime="text/csv"
@@ -887,7 +887,7 @@ def main():
     else:
         # Instructions
         st.info("""
-        ### 📋 Quick Start Guide:
+        ###  Quick Start Guide:
         
         1. **Select forecast horizon** (5 or 20 days) from the sidebar
         2. **Upload CSV file** with S&P 500 historical data (60+ days recommended)
@@ -896,13 +896,13 @@ def main():
         5. View point prediction with 95% confidence intervals
         6. Download forecast results as CSV
         
-        ### 🎯 Model Details:
+        ###  Model Details:
         - **Architecture**: Transformer with 2 encoder layers
         - **Input**: Last 60 days of engineered features (27 features)
         - **Output**: Configurable 5-day or 20-day ahead forecast
         - **Confidence**: 95% prediction intervals based on historical residuals
         
-        ### 📊 Interpretation:
+        ###  Interpretation:
         - **Point Prediction**: Most likely volatility level
         - **95% CI**: Range where true volatility is likely to fall
         - **Risk Level**: Automatically categorized (Low/Moderate/High)
